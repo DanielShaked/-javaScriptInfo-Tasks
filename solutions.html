@@ -1,0 +1,270 @@
+<!--task number 1-->>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <body>
+
+        <input type="button" id="hider" value="Click to hide the text" />
+      
+        <div id="text">Text</div>
+      
+        <script>
+          document.getElementById("hider").addEventListener("click",function(){
+            document.getElementById("text").style.display = "none"
+          })
+        </script>
+    
+  </body>
+</html>
+
+
+<!--task number 2 ball across field---->>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      #field {
+        width: 200px;
+        height: 150px;
+        border: 10px solid black;
+        background-color: #00ff00;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+      }
+      #ball {
+        position: absolute;
+        transition: 1s all;
+        top: 0px;
+        left: 0px;
+      }
+    </style>
+  </head>
+
+  <body style="height: 2000px">
+    Click on a field to move the ball there.
+    <br />
+    The ball should never leave the field.
+
+    <div id="field">
+      <img src="https://en.js.cx/clipart/ball.svg" id="ball" /> . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      . . . . . . . . . . . . . . . . . . . . .
+    </div>
+  </body>
+  <script>
+    const field = document.getElementById("field");
+    field.addEventListener("click", function (event) {
+      // window-relative field coordinates
+      let fieldCoords = this.getBoundingClientRect();
+      console.log(fieldCoords);
+      // the ball has position:absolute, the field: position:relative
+      // so ball coordinates are relative to the field inner left-upper corner
+      let ballCoords = {
+        top:
+          event.clientY -
+          fieldCoords.top -
+          field.clientTop -
+          ball.clientHeight / 2,
+        left:
+          event.clientX -
+          fieldCoords.left -
+          field.clientLeft -
+          ball.clientWidth / 2,
+      };
+      if (ballCoords.top < 0) {
+        ballCoords.top = 0;
+      }
+      if (ballCoords.left < 0) {
+        ballCoords.left = 0;
+      }
+      if (ballCoords.left + ball.clientWidth > field.clientWidth) {
+        ballCoords.left = field.clientWidth - ball.clientWidth;
+      }
+
+      if (ballCoords.top + ball.clientHeight > field.clientHeight) {
+        ballCoords.top = field.clientHeight - ball.clientHeight;
+      }
+      ball.style.left = ballCoords.left + "px";
+      ball.style.top = ballCoords.top + "px";
+      console.log(ballCoords.left);
+      console.log(ballCoords.top);
+      console.log(field.clientWidth);
+    });
+  </script>
+</html>
+
+<!--task number 3 - Toggling the menu-->>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .menu ul {
+        margin: 0;
+        list-style: none;
+        padding-left: 20px;
+        display: none;
+      }
+
+      .menu .title {
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      .menu .title::before {
+        content: "▶ ";
+        font-size: 80%;
+        color: green;
+      }
+
+      .menu.open .title::before {
+        content: "▼ ";
+      }
+
+      .menu.open ul {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sweeties" class="menu">
+      <span class="title">Sweeties (click me)!</span>
+      <ul>
+        <li>Cake</li>
+        <li>Donut</li>
+        <li>Honey</li>
+      </ul>
+    </div>
+
+    <script>
+      let menuElem = document.getElementById("sweeties");
+      let titleElem = menuElem.querySelector(".title");
+
+      titleElem.onclick = function () {
+        menuElem.classList.toggle("open");
+      };
+    </script>
+  </body>
+</html>
+
+<!--task number 4 - catch links-->>
+
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #contents {
+      padding: 5px;
+      border: 1px green solid;
+    }
+  </style>
+</head>
+
+<body>
+
+  <fieldset id="contents">
+    <legend>#contents</legend>
+    <p>
+      How about to read <a href="https://wikipedia.org">Wikipedia</a> or visit <a href="https://w3.org"><i>W3.org</i></a> and learn about modern standards?
+    </p>
+  </fieldset>
+
+  <script>
+    contents.onclick = function(event) {
+
+      function handleLink(href) {
+        let isLeaving = confirm(`Leave for ${href}?`);
+        if (!isLeaving) return false;
+      }
+
+      let target = event.target.closest('a');
+
+      if (target && contents.contains(target)) {
+        return handleLink(target.getAttribute('href'));
+      }
+    };
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+<!---task 5 -slider ---->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="slider" class="slider">
+    <div class="thumb"></div>
+  </div>
+
+  <script>
+    let thumb = slider.querySelector('.thumb');
+
+    thumb.onmousedown = function(event) {
+      event.preventDefault(); // prevent selection start (browser action)
+
+      let shiftX = event.clientX - thumb.getBoundingClientRect().left;
+      // shiftY not needed, the thumb moves only horizontally
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+
+      function onMouseMove(event) {
+        let newLeft = event.clientX - shiftX - slider.getBoundingClientRect().left;
+
+        // the pointer is out of slider => lock the thumb within the bounaries
+        if (newLeft < 0) {
+          newLeft = 0;
+        }
+        let rightEdge = slider.offsetWidth - thumb.offsetWidth;
+        if (newLeft > rightEdge) {
+          newLeft = rightEdge;
+        }
+
+        thumb.style.left = newLeft + 'px';
+      }
+
+      function onMouseUp() {
+        document.removeEventListener('mouseup', onMouseUp);
+        document.removeEventListener('mousemove', onMouseMove);
+      }
+
+    };
+
+    thumb.ondragstart = function() {
+      return false;
+    };
+
+  </script>
+
+</body>
+</html>
+
+-->
